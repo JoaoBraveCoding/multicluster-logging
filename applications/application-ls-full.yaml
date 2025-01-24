@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lokistack-full
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/JoaoBraveCoding/multicluster-logging
+    targetRevision: commit-id
+    path: chart/charts/lokistack-full
+    helm:
+      values: ""
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: open-cluster-management-observability
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

@@ -1,0 +1,21 @@
+argo-cd:
+  global:
+    domain: apps.jmarcalaws25012356.devcluster.openshift.com
+
+  configs:
+    cm:
+      timeout.reconciliation: 3600s
+
+  controller:
+    replicas: 1
+
+  server:
+    replicas: 1
+    ingress:    
+      enabled: true
+
+  repoServer:
+    replicas: 1
+
+  applicationSet:
+    replicas: 1

@@ -1,0 +1,6 @@
+apiVersion: v2
+description: A Helm chart to installing simple LokiStack for multicluster
+name: lokistack-full
+version: 0.1.0
+keywords:
+  - lokistack

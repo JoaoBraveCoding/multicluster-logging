@@ -1,0 +1,15 @@
+apiVersion: loki.grafana.com/v1
+kind: LokiStack
+metadata:
+  name: default-stack-instance-global
+  namespace: open-cluster-management-observability
+spec:
+  size: 1x.extra-small # Different from MCOA
+  storage:
+    schemas:
+    - effectiveDate: "2025-01-01" # Different from MCOA
+      version: v13
+    secret:
+      name: test # Different from MCOA
+      type: s3
+  storageClassName: gp3-csi
