@@ -5,18 +5,33 @@ of the multicluster-observability-addon.
 
 ```sh
 # Install ArgoCD
-helm upgrade --install argocd bootstrap
+oc create ns argocd
+helm -n argocd upgrade --install argocd bootstrap
 ```
 
 ## Create Applications
 
 ```sh
 # Application with full LokiStack specification
-oc apply -f applications/lokistack-full
+oc apply -f applications/application-ls-full.yaml
 
 # Application with partial LokiStack specification
-oc apply -f applications/lokistack-partial
+oc apply -f applications/application-ls-partial.yaml
 
 # Application with simple LokiStack specification
-oc apply -f applications/lokistack-simple
+oc apply -f applications/application-ls-simple.yaml
 ```
+
+## Results
+
+### Full specificaton
+
+- Update cycle if users try to update LS in fields they should not own
+
+### Simple specification
+
+- Update cycle if users try to update LS in fields they should not own
+
+### Partial specification
+
+- No update cycle as users only specify fields that they own

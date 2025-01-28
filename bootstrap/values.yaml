@@ -1,8 +1,10 @@
 argo-cd:
   global:
-    domain: apps.jmarcalaws25012356.devcluster.openshift.com
+    domain: argocd.apps.jmarcalaws25012846.devcluster.openshift.com
 
   configs:
+    secret:
+      argocdServerAdminPassword: $2a$10$T1p8NQ/8DCgChy2kg.sJfeZUXENU2pBewWXw.j80Yw.8DJBFYPc2a
     cm:
       timeout.reconciliation: 3600s
 
@@ -19,3 +21,7 @@ argo-cd:
 
   applicationSet:
     replicas: 1
+
+  redis:
+    securityContext:
+      runAsUser: 1000710000

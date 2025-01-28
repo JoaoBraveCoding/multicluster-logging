@@ -7,14 +7,27 @@ spec:
   project: default
   source:
     repoURL: https://github.com/JoaoBraveCoding/multicluster-logging
-    targetRevision: commit-id
+    targetRevision: 08b1bd97cef4a3322296ad96be2d0ca08c7c2842
     path: chart/charts/lokistack-partial
     helm:
-      values: ""
+      values: |
+        spec: 
+          size: 1x.extra-small # Different from MCOA
+          storage:
+            schemas:
+            - effectiveDate: "2025-01-01" # Different from MCOA
+              version: v13
+            secret:
+              name: test # Different from MCOA
+              type: s3
+          storageClassName: gp3-csi
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: open-cluster-management-observability
   syncPolicy:
+    syncOptions:
+    - ServerSideApply=true
+    # - Validate=false
     automated:
       prune: true
       selfHeal: true

@@ -9,5 +9,5 @@ dependencies:
   # Releases https://github.com/argoproj/argo-helm/releases
   # Update version and run "helm dependency update bootstrap"
   - name: argo-cd
-    version: 7.7.13
+    version: 7.7.21
     repository: https://argoproj.github.io/argo-helm

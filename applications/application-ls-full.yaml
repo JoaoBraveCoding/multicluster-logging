@@ -7,14 +7,104 @@ spec:
   project: default
   source:
     repoURL: https://github.com/JoaoBraveCoding/multicluster-logging
-    targetRevision: commit-id
+    targetRevision: 08b1bd97cef4a3322296ad96be2d0ca08c7c2842
     path: chart/charts/lokistack-full
     helm:
-      values: ""
+      values: |
+        spec:
+          spec:
+            limits:
+              global:
+                otlp:
+                  streamLabels:
+                    resourceAttributes:
+                    - name: k8s.namespace.name
+                    - name: kubernetes.namespace_name
+                    - name: log_source
+                    - name: log_type
+                    - name: openshift.cluster.uid
+                    - name: openshift.log.source
+                    - name: openshift.log.type
+                    - name: k8s.container.name
+                    - name: k8s.cronjob.name
+                    - name: k8s.daemonset.name
+                    - name: k8s.deployment.name
+                    - name: k8s.job.name
+                    - name: k8s.node.name
+                    - name: k8s.pod.name
+                    - name: k8s.statefulset.name
+                    - name: kubernetes.container_name
+                    - name: kubernetes.host
+                    - name: kubernetes.pod_name
+                    - name: service.name
+                  structuredMetadata:
+                    logAttributes:
+                    - name: k8s.event.level
+                    - name: k8s.event.object_ref.api.group
+                    - name: k8s.event.object_ref.api.version
+                    - name: k8s.event.object_ref.name
+                    - name: k8s.event.object_ref.resource
+                    - name: k8s.event.request.uri
+                    - name: k8s.event.response.code
+                    - name: k8s.event.stage
+                    - name: k8s.event.user_agent
+                    - name: k8s.user.groups
+                    - name: k8s.user.username
+                    - name: level
+                    - name: log.iostream
+                    - name: k8s\.event\.annotations\..+
+                      regex: true
+                    - name: systemd\.t\..+
+                      regex: true
+                    - name: systemd\.u\..+
+                      regex: true
+                    resourceAttributes:
+                    - name: k8s.node.uid
+                    - name: k8s.pod.uid
+                    - name: k8s.replicaset.name
+                    - name: process.command_line
+                    - name: process.executable.name
+                    - name: process.executable.path
+                    - name: process.pid
+                    - name: k8s\.pod\.labels\..+
+                      regex: true
+                    - name: openshift\.labels\..+
+                      regex: true
+            managementState: Unmanaged
+            size: 1x.extra-small # Different from MCOA
+            storage:
+              schemas:
+              - effectiveDate: "2025-01-01" # Different from MCOA
+                version: v13
+              secret:
+                name: test # Different from MCOA
+                type: s3 
+            storageClassName: gp3-csi
+            tenants:
+              authorization:
+                opa:
+                  url: ""
+                roleBindings:
+                - name: cluster-reader
+                  roles:
+                  - cluster-reader
+                  subjects:
+                  - kind: group
+                    name: mcoa-logs-admin
+                roles:
+                - name: cluster-reader
+                  permissions:
+                  - write # Different from MCOA
+                  resources:
+                  - logs
+                  tenants: []
+              mode: static
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: open-cluster-management-observability
   syncPolicy:
+    syncOptions:
+    - ServerSideApply=true
     automated:
       prune: true
       selfHeal: true
