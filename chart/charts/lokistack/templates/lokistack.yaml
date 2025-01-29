@@ -3,4 +3,4 @@ kind: LokiStack
 metadata:
   name: default-stack-instance-global
   namespace: open-cluster-management-observability
-spec: {{ .Values.spec | nindent 2 }}
+spec: {{- toYaml .Values.spec | nindent 2 }}

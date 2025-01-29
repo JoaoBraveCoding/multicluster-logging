@@ -7,8 +7,8 @@ spec:
   project: default
   source:
     repoURL: https://github.com/JoaoBraveCoding/multicluster-logging
-    targetRevision: 08b1bd97cef4a3322296ad96be2d0ca08c7c2842
-    path: chart/charts/lokistack-simple
+    targetRevision: 461506d8ab2eb683df82ebb55edad1c5b0574d04
+    path: chart/charts/lokistack
     helm:
       values: |
         spec:
