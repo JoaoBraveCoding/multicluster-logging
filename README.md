@@ -27,10 +27,12 @@ oc apply -f applications/application-ls-simple.yaml
 ### Full specificaton
 
 - Update cycle if users try to update LS in fields they should not own
+- No update cycle as users only specify fields that they own
 
 ### Simple specification
 
 - Update cycle if users try to update LS in fields they should not own
+- No update cycle as users only specify fields that they own
 
 ### Partial specification
 
